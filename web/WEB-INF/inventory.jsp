@@ -74,5 +74,29 @@
             <input type="hidden" name="action" value="add">
             <input type="submit" value="Add"/>
         </form>
+        <br>
+        <h3>Edit Item</h3>
+        <form action="inventory" method="POST">
+            Category: 
+            <select name="categories2">
+                <option value="1">kitchen</option>
+                <option value="2">bathroom</option>
+                <option value="3">living room</option>
+                <option value="4">basement</option>
+                <option value="5">bedroom</option>
+                <option value="6">garage</option>
+                <option value="7">office</option>
+                <option value="8">utility room</option>
+                <option value="9">storage</option>
+                <option value="10">other</option>
+            </select>
+            <br>
+            Name: <input required type="text" name="itemName2" value="${itemName2}"/>
+            <br/>
+            Price: <input required type="text" name="price2" value="${price2}"/>
+            <br/>
+            <input type="hidden" name="action" value="edit">
+            <input type="submit" value="Edit"/>
+        </form>
     </body>
 </html>

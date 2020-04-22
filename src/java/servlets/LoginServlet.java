@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import services.AccountService;
+import services.UserService;
 
 public class LoginServlet extends HttpServlet {
 
@@ -32,23 +33,29 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
-
+        UserService us = new UserService();
         AccountService ac = new AccountService();
-        if (ac.login(userName, password) != null) {
-            Users check = ac.login(userName, password);
-            if (check.getIsAdmin()) {
-                session.setAttribute("isAdminPage", check.getUsername());
-                session.setAttribute("isAdminInventory", check.getUsername());
-                session.setAttribute("userInventory", check.getUsername());
-                response.sendRedirect("admin");
+
+        try {
+            Users user = us.get(userName);
+            if (ac.login(userName, password) != null && user.getActive()) {
+                Users check = ac.login(userName, password);
+                if (check.getIsAdmin()) {
+                    session.setAttribute("isAdminPage", check.getUsername());
+                    session.setAttribute("isAdminInventory", check.getUsername());
+                    session.setAttribute("userInventory", check.getUsername());
+                    response.sendRedirect("admin");
+                } else {
+                    session.setAttribute("userInventory", userName);
+                    session.setAttribute("isUserInventory", userName);
+                    session.setAttribute("userSetting", userName);
+                    response.sendRedirect("inventory");
+                }
             } else {
-                session.setAttribute("userInventory", userName);
-                session.setAttribute("isUserInventory", userName);
-                session.setAttribute("userSetting", userName);
-                response.sendRedirect("inventory");
+                getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             }
-        } else {
-            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        } catch (Exception ex) {
+            request.setAttribute("errorMessage", "Whoops.  Could not perform that action.");
         }
     }
 }

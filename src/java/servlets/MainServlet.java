@@ -35,10 +35,15 @@ public class MainServlet extends HttpServlet {
         String owner = (String) session.getAttribute("userSetting");
         try {
             Users user = us.get(owner);
-            request.setAttribute("username2", user.getUsername());
-            request.setAttribute("email2", user.getEmail());
-            request.setAttribute("firstName2", user.getFirstName());
-            request.setAttribute("lastName2", user.getLastName());
+            request.setAttribute("username23", user.getUsername());
+            request.setAttribute("email23", user.getEmail());
+            request.setAttribute("firstName23", user.getFirstName());
+            request.setAttribute("lastName23", user.getLastName());
+            request.setAttribute("username24", user.getUsername());
+            request.setAttribute("email24", user.getEmail());
+            request.setAttribute("firstName24", user.getFirstName());
+            request.setAttribute("lastName24", user.getLastName());
+            
             getServletContext().getRequestDispatcher("/WEB-INF/main.jsp").forward(request, response);
 
         } catch (Exception ex) {
@@ -50,27 +55,31 @@ public class MainServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
+        HttpSession session = request.getSession();
 
         UserService us = new UserService();
         try {
             if (action.equals("save")) {
-                String username = request.getParameter("username2");
-                String email = request.getParameter("email2");
-                String firstName = request.getParameter("firstName2");
-                String lastName = request.getParameter("lastName2");
-
+                String username = request.getParameter("username23");
+                String email = request.getParameter("email23");
+                String firstName = request.getParameter("firstName23");
+                String lastName = request.getParameter("lastName23");
+                System.out.println(email);
                 us.update(username, "password", firstName, lastName, email, true, false);
+                response.sendRedirect("main");
             } else if (action.equals("deactivate")) {
-                String username = request.getParameter("username2");
-                String email = request.getParameter("email2");
-                String firstName = request.getParameter("firstName2");
-                String lastName = request.getParameter("lastName2");
-
+                String username = request.getParameter("username24");
+                String email = request.getParameter("email24");
+                String firstName = request.getParameter("firstName24");
+                String lastName = request.getParameter("lastName24");
+                System.out.println(username);
                 us.update(username, "password", firstName, lastName, email, false, false);
+                session.invalidate();
+                response.sendRedirect("login");
             }
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Whoops.  Could not perform that action.");
         }
-        response.sendRedirect("main");
+
     }
 }

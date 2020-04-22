@@ -27,6 +27,7 @@
                 <th>Email</th>
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th>Active</th>
                 <th>Delete</th>
                 <th>Edit</th>
             </tr>
@@ -36,6 +37,8 @@
                     <td>${user.email}&nbsp;</td>
                     <td>${user.firstName}&nbsp;</td>
                     <td>${user.lastName}&nbsp;</td>
+                    <td>${user.active}&nbsp;</td>
+
                     <td>
                         <form action="admin" method="post">
                             <input type="hidden" name="selectedUser" value="${user.username}"/>
@@ -60,6 +63,7 @@
             Email: <input required type="email" name="email" value="${email}"><br>
             First Name: <input required type="text" name="firstName" value="${firstName}"><br>
             Last Name: <input required type="text" name="lastName" value="${lastName}"><br>
+            Active: <label class="switch"><input name="active" value="${active}" type="checkbox"><span class="slider"></span></label><br>
             <input type="hidden" name="action" value="save">
             <input type="submit" value="Save">
         </form>
@@ -70,6 +74,7 @@
             Email: <input required type="email" name="email2" value="${email2}"><br>
             First Name: <input required type="text" name="firstName2" value="${firstName2}"><br>
             Last Name: <input required type="text" name="lastName2" value="${lastName2}"><br>
+            Active: <label class="switch"><input name="active2" value="${active2}" type="checkbox"><span class="slider"></span></label><br>
             <input type="hidden" name="action" value="add">
             <input type="submit" value="Add">
         </form>

@@ -37,9 +37,10 @@ public class InventoryServlet extends HttpServlet {
                     String selectedItem = request.getParameter("selectedItem");
                     int itemID = Integer.parseInt(selectedItem);
                     Items item = inv.get(itemID);
-                    request.setAttribute("categories", item.getCategory());
-                    request.setAttribute("itemName", item.getItemName());
-                    request.setAttribute("price", item.getPrice());
+                    Categories cat = item.getCategory();
+                    request.setAttribute("categories2", cat.getCategoryID());
+                    request.setAttribute("itemName2", item.getItemName());
+                    request.setAttribute("price2", item.getPrice());
 
                     List<Items> items = null;
                     items = inv.getAll();
@@ -55,9 +56,10 @@ public class InventoryServlet extends HttpServlet {
                 String selectedItem = request.getParameter("selectedItem");
                 int itemID = Integer.parseInt(selectedItem);
                 Items item = inv.get(itemID);
-                request.setAttribute("categories", item.getCategory());
-                request.setAttribute("itemName", item.getItemName());
-                request.setAttribute("price", item.getPrice());
+                Categories cat = item.getCategory();
+                request.setAttribute("categories2", cat.getCategoryID());
+                request.setAttribute("itemName2", item.getItemName());
+                request.setAttribute("price2", item.getPrice());
 
                 List<Items> items = null;
                 try {
@@ -69,8 +71,7 @@ public class InventoryServlet extends HttpServlet {
                 request.setAttribute("items", items);
                 getServletContext().getRequestDispatcher("/WEB-INF/inventory.jsp").forward(request, response);
             } else {
-                
-                
+
                 List<Items> items = null;
                 try {
                     items = inv.getAll(sessionUser);
