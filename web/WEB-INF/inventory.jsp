@@ -16,8 +16,8 @@
         <h1>Home Inventory</h1>
         <h3>Menu</h3>
         <ul>
-            <li><c:if test="${isAdminInventory != null}"><a href="admin">Admin</a><br></c:if></li>
-            <li><c:if test="${isUserInventory != null}"><a href="main">Account Settings</a><br></c:if></li>
+            <c:if test="${isAdminInventory != null}"><li><a href="admin">Admin</a></li><br></c:if>
+            <c:if test="${isUserInventory != null}"><li><a href="main">Account Settings</a></li><br></c:if>
                 <li><a href="login">Logout</a></li>
             </ul>
             <h2>Inventory for ${userInventory}</h2>

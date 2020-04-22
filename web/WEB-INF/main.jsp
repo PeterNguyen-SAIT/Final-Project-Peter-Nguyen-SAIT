@@ -9,21 +9,27 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<<<<<<< HEAD
         <title>Final Project</title>
     </head>
     <body>
         <h1>Home Inventory</h1>
-        <h3>Menu</h3>
         <ul>
-            <li><c:if test="${isUserInventory != null}"><a href="main">Account Settings</a><br></c:if></li>
-                <li><a href="login">Logout</a></li>
-            </ul>
-            <h2>Inventory for ${userInventory2}</h2>
-=======
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
+            <li><a href="inventory">Inventory</a></li>
+            <li><a href="login">Logout</a></li>
+        </ul>
+        <h3>Account Settings</h3>
+        <h2>Account settings for ${userSetting}</h2>
+        <form action="main" method="POST">
+            Username: <input required type="text" name="username2" value="${username2}"><br>
+            Email: <input required type="email" name="email2" value="${email2}"><br>
+            First Name: <input required type="text" name="firstName2" value="${firstName2}"><br>
+            Last Name: <input required type="text" name="lastName2" value="${lastName2}"><br>
+            <input type="hidden" name="action" value="save">
+            <input type="submit" value="Save">
+        </form><br>
+        <form action="main" method="POST">
+            <input type="hidden" name="action" value="deactivate">
+            <input type="submit" value="Deactivate Account">
+        </form>
     </body>
 </html>

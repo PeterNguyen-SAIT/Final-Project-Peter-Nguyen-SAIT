@@ -16,6 +16,10 @@
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>servlets.RegisterServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MainServlet</servlet-name>
+        <servlet-class>servlets.MainServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminServlet</servlet-name>
         <url-pattern>/admin</url-pattern>
@@ -35,6 +39,10 @@
     <welcome-file-list>
         <welcome-file>admin</welcome-file>
     </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>MainServlet</servlet-name>
+        <url-pattern>/main</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

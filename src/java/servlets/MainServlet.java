@@ -5,13 +5,19 @@
  */
 package servlets;
 
+import domain.Categories;
+import domain.Items;
+import domain.Users;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import services.Inventory;
 import services.UserService;
 
 /**
@@ -23,38 +29,48 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String action = request.getParameter("action");
         HttpSession session = request.getSession();
-        session.invalidate();
+        UserService us = new UserService();
+        String owner = (String) session.getAttribute("userSetting");
+        try {
+            Users user = us.get(owner);
+            request.setAttribute("username2", user.getUsername());
+            request.setAttribute("email2", user.getEmail());
+            request.setAttribute("firstName2", user.getFirstName());
+            request.setAttribute("lastName2", user.getLastName());
+            getServletContext().getRequestDispatcher("/WEB-INF/main.jsp").forward(request, response);
 
-        getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        String username = request.getParameter("username1");
-        String password = request.getParameter("password1");
-        String email = request.getParameter("email1");
-        String firstName = request.getParameter("firstName1");
-        String lastName = request.getParameter("lastName1");
 
         UserService us = new UserService();
         try {
-            if (action.equals("register")) {
-                System.out.println(username);
-                us.insert(username, password, email, firstName, lastName, true, false);
-            } else if (action.equals("save")) {
-                us.update(username, password, firstName, lastName, email, true, false);
-            } else if (action.equals("delete")) {
-                String selectedUser = request.getParameter("selectedUser");
-                System.out.println(selectedUser);
-                us.delete(selectedUser);
+            if (action.equals("save")) {
+                String username = request.getParameter("username2");
+                String email = request.getParameter("email2");
+                String firstName = request.getParameter("firstName2");
+                String lastName = request.getParameter("lastName2");
+
+                us.update(username, "password", firstName, lastName, email, true, false);
+            } else if (action.equals("deactivate")) {
+                String username = request.getParameter("username2");
+                String email = request.getParameter("email2");
+                String firstName = request.getParameter("firstName2");
+                String lastName = request.getParameter("lastName2");
+
+                us.update(username, "password", firstName, lastName, email, false, false);
             }
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Whoops.  Could not perform that action.");
         }
-
-        getServletContext().getRequestDispatcher("/WEB-INF/successful.jsp").forward(request, response);
+        response.sendRedirect("main");
     }
 }

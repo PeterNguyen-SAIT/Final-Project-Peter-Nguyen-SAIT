@@ -54,7 +54,7 @@ public class InventoryServlet extends HttpServlet {
             } else if (action != null && action.equals("edit")) {
                 String selectedItem = request.getParameter("selectedItem");
                 int itemID = Integer.parseInt(selectedItem);
-                Items item = new Items(itemID);
+                Items item = inv.get(itemID);
                 request.setAttribute("categories", item.getCategory());
                 request.setAttribute("itemName", item.getItemName());
                 request.setAttribute("price", item.getPrice());
@@ -69,6 +69,8 @@ public class InventoryServlet extends HttpServlet {
                 request.setAttribute("items", items);
                 getServletContext().getRequestDispatcher("/WEB-INF/inventory.jsp").forward(request, response);
             } else {
+                
+                
                 List<Items> items = null;
                 try {
                     items = inv.getAll(sessionUser);

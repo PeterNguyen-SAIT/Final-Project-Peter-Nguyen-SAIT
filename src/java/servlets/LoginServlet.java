@@ -43,6 +43,8 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect("admin");
             } else {
                 session.setAttribute("userInventory", userName);
+                session.setAttribute("isUserInventory", userName);
+                session.setAttribute("userSetting", userName);
                 response.sendRedirect("inventory");
             }
         } else {
