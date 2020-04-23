@@ -55,28 +55,37 @@
                     </td>
                 </tr>
             </c:forEach>  
+        </table><br>
+        <table>
+            <tr>
+                <th>Edit User</th>
+                <th>Add User</th>
+            </tr>
+            <tr>
+                <td>
+                    <form action="admin" method="POST">
+                        Username: <input required type="text" name="username" value="${username}"><br>
+                        Password: <input required type="text" name="password" value="${password}"><br>
+                        Email: <input required type="email" name="email" value="${email}"><br>
+                        First Name: <input required type="text" name="firstName" value="${firstName}"><br>
+                        Last Name: <input required type="text" name="lastName" value="${lastName}"><br>
+                        Active: <label class="switch"><input name="active" value="${active}" type="checkbox"><span class="slider"></span></label><br>
+                        <input type="hidden" name="action" value="save">
+                        <input type="submit" value="Save">
+                    </form></td>
+                <td>
+                    <form action="admin" method="POST">
+                        Username: <input required type="text" name="username2" value="${username2}"><br>
+                        Password: <input required type="text" name="password2" value="${password2}"><br>
+                        Email: <input required type="email" name="email2" value="${email2}"><br>
+                        First Name: <input required type="text" name="firstName2" value="${firstName2}"><br>
+                        Last Name: <input required type="text" name="lastName2" value="${lastName2}"><br>
+                        Active: <label class="switch"><input name="active2" value="${active2}" type="checkbox"><span class="slider"></span></label><br>
+                        <input type="hidden" name="action" value="add">
+                        <input type="submit" value="Add">
+                    </form>
+                </td>
+            </tr>
         </table>
-        <h2>Edit User</h2>
-        <form action="admin" method="POST">
-            Username: <input required type="text" name="username" value="${username}"><br>
-            Password: <input required type="text" name="password" value="${password}"><br>
-            Email: <input required type="email" name="email" value="${email}"><br>
-            First Name: <input required type="text" name="firstName" value="${firstName}"><br>
-            Last Name: <input required type="text" name="lastName" value="${lastName}"><br>
-            Active: <label class="switch"><input name="active" value="${active}" type="checkbox"><span class="slider"></span></label><br>
-            <input type="hidden" name="action" value="save">
-            <input type="submit" value="Save">
-        </form>
-        <h2>Add User</h2>
-        <form action="admin" method="POST">
-            Username: <input required type="text" name="username2" value="${username2}"><br>
-            Password: <input required type="text" name="password2" value="${password2}"><br>
-            Email: <input required type="email" name="email2" value="${email2}"><br>
-            First Name: <input required type="text" name="firstName2" value="${firstName2}"><br>
-            Last Name: <input required type="text" name="lastName2" value="${lastName2}"><br>
-            Active: <label class="switch"><input name="active2" value="${active2}" type="checkbox"><span class="slider"></span></label><br>
-            <input type="hidden" name="action" value="add">
-            <input type="submit" value="Add">
-        </form>
     </body>
 </html>
